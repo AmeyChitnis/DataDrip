@@ -5,6 +5,7 @@ import pandas as pd
 import numpy as np
 import joblib
 import folium
+import os
 from streamlit_folium import st_folium
 from math import radians, cos, sin, sqrt, atan2
 import json
@@ -25,10 +26,12 @@ from preprocessors import (
 )
 
 @st.cache_resource
-def load_full_pipeline(path: str = "full_pipeline.joblib"):
-    return joblib.load(path)
+def load_full_pipeline():
+    pkg_dir = os.path.dirname(__file__)
+    pipeline_path = os.path.join(pkg_dir, "full_pipeline.joblib")
+    return joblib.load(pipeline_path)
 
-pipeline = load_full_pipeline("full_pipeline.joblib")
+pipeline = load_full_pipeline()
 
 # ─────────────────────────────────────────────────────────────────────────────
 # 2) Load feature metadata & geo_lookup
